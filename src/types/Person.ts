@@ -8,9 +8,9 @@
 interface Person {
   id: number | null;
 
-  firstName: string;
+  username: string;
 
-  lastName: string;
+  password: string;
 
   blind: boolean;
 

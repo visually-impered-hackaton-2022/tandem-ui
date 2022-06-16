@@ -1,14 +1,35 @@
 <template>
     <div id="app">
         <h1>Register</h1>
-        <form @submit.prevent="login(firstname, lastname, blind, interests)">
-            <input v-model="firstname" placeholder="username">
-            <input v-model="lastname" placeholder="password" type="password">
+        <form @submit.prevent="login(username, password, blind, interests)">
+            <input v-model="username" placeholder="Username" required>
+            <input v-model="password" placeholder="Password" type="password" required>
             
+            <h3>Your Interests</h3>
             <p>
                 <label>
                     <input type="checkbox" class="filled-in" value="Sports" v-model="interests" />
                     <span>Sports</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filled-in" value="Grocery" v-model="interests" />
+                    <span>Grocery</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filled-in" value="Travel" v-model="interests" />
+                    <span>Travel</span>
+                </label>
+            </p>
+            
+            <h3>Disability</h3>
+            <p>
+                <label>
+                    <input type="checkbox" class="filled-in" v-model="blind" />
+                    <span>Are you blind or visually impaired? ({{ blindLabel }})</span>
                 </label>
             </p>
 
@@ -33,32 +54,38 @@ export default defineComponent({
 
     data() {
         return {
-            firstname: "",
-            lastname: "",
+            username: "",
+            password: "",
             blind: false,
             test: false,
             interests: [] as string[]
         }
     },
 
+    computed: {
+        blindLabel() {
+            return this.blind ? "Yes" : "No"
+        }
+    },
+
     methods: {
 
-        login(firstname: string, lastname: string, blind: boolean, interests: string[]): void {
+        login(username: string, password: string, blind: boolean, interests: string[]): void {
             
-            if (this.firstname === undefined || this.firstname === "") {
-                this.toast.error("fistName is not set");
+            if (this.username === undefined || this.username === "") {
+                this.toast.error("Username is not set");
                 return
             }
             try {
                 this.$store.dispatch("addPerson", { 
-                    firstname: this.firstname,
-                    lastname: this.lastname,
+                    username: this.username,
+                    password: this.password,
                     interests: this.interests,
                     blind: this.blind,
                     id: null })
                 this.$router.push("/");
             } catch (err) {
-
+                    
             }
         },
     }
