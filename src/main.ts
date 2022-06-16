@@ -12,6 +12,7 @@ import 'v-calendar/dist/style.css';
 import VCalendar from 'v-calendar';
 
 //tailwind
+import "./index.css"
 
 
 const options = {
