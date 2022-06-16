@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <h1>Register</h1>
-        <form @submit.prevent="login(username, password, blind, interests)">
+        <form @submit.prevent="register(username, password, blind, interests)">
             <input v-model="username" placeholder="Username" required>
             <input v-model="password" placeholder="Password" type="password" required>
             
@@ -70,7 +70,7 @@ export default defineComponent({
 
     methods: {
 
-        login(username: string, password: string, blind: boolean, interests: string[]): void {
+        register(username: string, password: string, blind: boolean, interests: string[]): void {
             
             if (this.username === undefined || this.username === "") {
                 this.toast.error("Username is not set");

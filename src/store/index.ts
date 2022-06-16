@@ -21,7 +21,7 @@ const store = createStore<APPRootState>({
   state: {
     version: "1.0.0", // a simple property
     backendUrl: "https://tandem-quarkus-tandem.apps.cluster-jpv4f.jpv4f.sandbox1420.opentlc.com/persons",
-    persons: [],
+    persons: [] as Person[],
     error: "",
   },
   mutations: {

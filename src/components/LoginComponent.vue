@@ -1,9 +1,14 @@
 <template>
+    <h2>Login</h2>
     <form @submit.prevent="login(username, password)">
         <input v-model="username" placeholder="username" required>
         <input v-model="password" placeholder="password" type="password" required>
 
+        <span>
         <input type="submit" class="waves-effect waves-light btn" value="Login">
+        Or <router-link to="/register">Register</router-link>
+        </span>
+
     </form>
 </template>
 <script lang="ts">
@@ -33,16 +38,14 @@ export default defineComponent({
                 this.$store.dispatch("getPersons", {
                     username: this.username,
                     password: this.password
+                }).then(() => {
+                    let persons = this.$store.state.persons as Person[];
+                    if (persons.find(p => p.username == username && p.password == password) != undefined) {
+                        this.$router.push("/");
+                    } else {
+                        this.toast.error("Login failed");
+                    }
                 });
-                let persons: Person[] = this.$store.persons;
-                if (persons.find(p => p.username == username && p.password == password) != undefined){
-                    this.$router.push("/");
-                }
-                else {
-                    this.toast.error("Login failed");
-                return
-                }
-                
             } catch (err) {
 
             }
