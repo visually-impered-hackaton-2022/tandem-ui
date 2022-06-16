@@ -1,4 +1,3 @@
-import TemperatureState from "@/types/TemperatureState";
 import { createStore } from "vuex";
 import newRequest from "@/api";
 import { HTTP_VERBS } from "@/types/Common";
@@ -21,8 +20,8 @@ interface APPRootState {
 const store = createStore<APPRootState>({
   state: {
     version: "1.0.0", // a simple property
-    backendUrl: "http://localhost:8080/persons",
-    persons: [],
+    backendUrl: "https://tandem-quarkus-tandem.apps.cluster-jpv4f.jpv4f.sandbox1420.opentlc.com/persons",
+    persons: [] as Person[],
     error: "",
   },
   mutations: {
@@ -65,9 +64,14 @@ const store = createStore<APPRootState>({
         store.commit("updatePersons",result);
       });;
     },
-    addPerson({ commit },{firstname,lastname,id}): any {
+    addPerson({ commit },{username,password,blind,interests,id}): any {
       store.commit("updateError", "");
-      let person:Person = {firstName:firstname,lastName:lastname,id:id};
+      let person:Person = {
+        username:username,
+        password:password,
+        blind:blind,
+        interests: interests,
+        id:id};
       const json = JSON.stringify(person);
       console.log(json);
       newRequest(
@@ -86,7 +90,7 @@ const store = createStore<APPRootState>({
         store.commit("sendToastSuccess",dmesg);
       });
 
-    },
+    }
   }, //end of actions
 }); //end of store
 
