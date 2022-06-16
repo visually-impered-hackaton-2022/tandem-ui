@@ -7,6 +7,11 @@ import store from "@/store/index";
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
+// v-calendar
+import 'v-calendar/dist/style.css';
+import VCalendar from 'v-calendar';
+
+//tailwind
 
 
 const options = {
@@ -16,6 +21,9 @@ const options = {
 const app = createApp(App).use(router).use(Donut).use(store);
 
 app.use(Toast, options);
+
+// Setup plugin for defaults or `$screens` (optional)
+app.use(VCalendar, {})
 
 app.config.performance = true;
 

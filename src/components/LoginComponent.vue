@@ -17,7 +17,7 @@ import { useToast } from "vue-toastification";
 import Person from "@/types/Person";
 
 export default defineComponent({
-    name: "",
+    name: "LoginComponent",
     setup() {
         const toast = useToast();
         return { toast };
