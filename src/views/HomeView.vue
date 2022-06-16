@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <HelloWorld msg="demo app"/>
+    <HelloWorld msg="Tandem - Find your companion"/>
     <peopleview-component/>
   </div>
 </template>
