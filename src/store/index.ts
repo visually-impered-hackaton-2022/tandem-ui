@@ -1,4 +1,3 @@
-import TemperatureState from "@/types/TemperatureState";
 import { createStore } from "vuex";
 import newRequest from "@/api";
 import { HTTP_VERBS } from "@/types/Common";
@@ -65,9 +64,14 @@ const store = createStore<APPRootState>({
         store.commit("updatePersons",result);
       });;
     },
-    addPerson({ commit },{firstname,lastname,id}): any {
+    addPerson({ commit },{firstname,lastname,blind,interests,id}): any {
       store.commit("updateError", "");
-      let person:Person = {firstName:firstname,lastName:lastname,id:id};
+      let person:Person = {
+        firstName:firstname,
+        lastName:lastname,
+        blind:blind,
+        interests: interests,
+        id:id};
       const json = JSON.stringify(person);
       console.log(json);
       newRequest(

@@ -6,12 +6,15 @@
  *
  */
 interface Person {
-   id: number | null  ;
+  id: number | null;
 
   firstName: string;
 
   lastName: string;
 
+  blind: boolean;
+
+  interests: string[];
 
 }
 export default Person;
