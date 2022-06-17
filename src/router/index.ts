@@ -11,7 +11,7 @@ function isAuthenticated() {
   let user = store.state.login as Login;
   console.log("User auth:");
   console.log(user);
-  return Object.keys(user).length !== 0
+  return Object.keys(user).length !== 0;
 }
 
 const routes: Array<RouteRecordRaw> = [

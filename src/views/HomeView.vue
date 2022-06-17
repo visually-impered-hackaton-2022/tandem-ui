@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!--<HelloWorld msg="Tandem - Find your companion"/>-->
-    <event-calendar-component/>
+    <event-calendar-component />
   </div>
 </template>
 
