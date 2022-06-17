@@ -49,9 +49,6 @@ const store = createStore<APPRootState>({
         toast.error(err);
       }
     },
-    updateLogin(state, login) {
-      state.login =login;
-    },
     sendToastSuccess(state,msg:string){
       if (state.error === ""){
         toast.success(msg);
