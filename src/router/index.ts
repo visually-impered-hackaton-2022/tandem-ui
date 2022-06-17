@@ -4,6 +4,15 @@ import HomeView from "../views/HomeView.vue";
 import AddPersonView from "@/views/AddPersonView.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import Login from "@/types/Login";
+import store from "@/store/index";
+
+function isAuthenticated() {
+  let user = store.state.login as Login;
+  console.log("User auth:");
+  console.log(user);
+  return Object.keys(user).length !== 0
+}
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,6 +54,11 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' && to.name !== 'register' && !isAuthenticated()) next({ name: 'login' })
+  else next()
 });
 
 export default router;

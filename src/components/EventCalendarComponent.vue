@@ -30,11 +30,19 @@ export default defineComponent({
             masks: {
                 weekdays: 'WWW',
             },
+            classes: [
+                'bg-red-600 text-white',
+                'bg-blue-500 text-white',
+                'bg-indigo-500 text-white',
+                'bg-teal-500 text-white',
+                'bg-pink-500 text-white',
+                'bg-orange-500 text-white'
+            ],
             attributes: [
                 {
                     key: 1,
                     customData: {
-                        title: 'Lunch with mom.',
+                        title: 'Jogging.',
                         class: 'bg-red-600 text-white',
                     },
                     dates: new Date(year, month, 1),

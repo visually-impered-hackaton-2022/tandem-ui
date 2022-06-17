@@ -4,6 +4,7 @@ import { HTTP_VERBS } from "@/types/Common";
 import Person from "@/types/Person";
 import { useToast } from "vue-toastification";
 import { stat } from "fs";
+import Login from "@/types/Login";
 
 const toast = useToast();
 
@@ -15,6 +16,7 @@ interface APPRootState {
   backendUrl: string;
   persons : Person[];
   error: string;
+  login: Login;
 }
 
 const store = createStore<APPRootState>({
@@ -23,6 +25,7 @@ const store = createStore<APPRootState>({
     backendUrl: "https://tandem-quarkus-tandem.apps.cluster-jpv4f.jpv4f.sandbox1420.opentlc.com/persons",
     persons: [] as Person[],
     error: "",
+    login: {} as Login,
   },
   mutations: {
     
