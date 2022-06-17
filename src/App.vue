@@ -18,10 +18,10 @@
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab">
-          <router-link to="#tab1">My Events</router-link>
+          <router-link to="/">My Events</router-link>
         </li>
         <li class="tab">
-          <router-link to="#tab2">Create Event</router-link>
+          <router-link to="/create">Create Event</router-link>
         </li>
       </ul>
     </div>
