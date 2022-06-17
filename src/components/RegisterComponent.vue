@@ -28,7 +28,7 @@
             <h3>Disability</h3>
             <p>
                 <label>
-                    <input type="checkbox" class="filled-in" v-model="blind" />
+                    <input type="checkbox" class="filled-in" :blind="blind" />
                     <span>Are you blind or visually impaired? ({{ blindLabel }})</span>
                 </label>
             </p>
@@ -62,13 +62,13 @@ export default defineComponent({
         }
     },
 
-    computed: {
-        blindLabel() {
-            return this.blind ? "Yes" : "No";
-        }
-    },
+  
 
     methods: {
+
+        blindLabel() {
+            return this.blind ? "Yes" : "No";
+        },
 
         register(username: string, password: string, blind: boolean, interests: string[]): void {
             

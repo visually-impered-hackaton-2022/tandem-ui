@@ -14,6 +14,7 @@ function isAuthenticated() {
   console.log("User auth:");
   console.log(user);
   return Object.keys(user).length !== 0;
+  
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -64,7 +65,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'login' && to.name !== 'register' && !isAuthenticated()) next({ name: 'login' })
+  if (to.name !== 'login' && to.name !== 'register' && to.name !== 'settings' && !isAuthenticated()) next({ name: 'login' })
   else next()
 });
 
