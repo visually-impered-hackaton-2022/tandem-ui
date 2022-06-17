@@ -64,7 +64,7 @@ export default defineComponent({
 
     computed: {
         blindLabel() {
-            return this.blind ? "Yes" : "No"
+            return this.blind ? "Yes" : "No";
         }
     },
 
