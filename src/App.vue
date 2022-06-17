@@ -15,7 +15,7 @@
         </li>
       </ul>
     </div>
-    <div v-if="login" class="nav-content">
+    <div class="nav-content">
       <ul class="tabs tabs-transparent">
         <li class="tab">
           <router-link to="#tab1">My Events</router-link>
