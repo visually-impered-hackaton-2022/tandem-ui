@@ -20,6 +20,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { setup } from "vue-class-component";
+import Event from "@/types/Event"
 
 export default defineComponent({
     name: "EventCalendarComponent",
@@ -38,7 +40,9 @@ export default defineComponent({
                 'bg-pink-500 text-white',
                 'bg-orange-500 text-white'
             ],
+            
             attributes: [
+                
                 {
                     key: 1,
                     customData: {
@@ -47,6 +51,7 @@ export default defineComponent({
                     },
                     dates: new Date(year, month, 1),
                 },
+                /*
                 {
                     key: 2,
                     customData: {
@@ -110,12 +115,33 @@ export default defineComponent({
                         class: 'bg-red-600 text-white',
                     },
                     dates: new Date(year, month, 25),
-                },
+                },*/
             ],
         }
     },
     methods: {
 
+    },
+
+    mounted() {
+        const month = new Date().getMonth();
+        const year = new Date().getFullYear();
+        let counter = 0;
+
+        let events = this.$store.state.events as Event[];
+
+        for (const currEvent of events) {
+            this.attributes.push(
+                {
+                    key: ++counter,
+                    customData: {
+                        title: currEvent.name,
+                        class: 'bg-teal-500 text-white',
+                    },
+                    dates: currEvent.date,
+                }
+            );
+        }
     }
 });
 </script>
