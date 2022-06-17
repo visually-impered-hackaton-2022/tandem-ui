@@ -35,7 +35,7 @@ export default defineComponent({
                 return
             }
             try {
-                this.$store.dispatch("getPersons", {
+                this.$store.dispatch("login", {
                     username: this.username,
                     password: this.password
                 }).then(() => {

@@ -41,6 +41,9 @@ const store = createStore<APPRootState>({
         toast.error(err);
       }
     },
+    updateLogin(state, login) {
+      state.login =login;
+    },
     sendToastSuccess(state,msg:string){
       if (state.error === ""){
         toast.success(msg);
@@ -49,6 +52,30 @@ const store = createStore<APPRootState>({
     }
   },
   actions: {
+    login({ commit },{username,password}): any {
+      store.commit("updateError", "");
+      let person:Person = {id:null,username:username,password:password,blind:false,interests:[]}
+      const json = JSON.stringify(person);
+      newRequest(
+        HTTP_VERBS.POST,
+        this.state.backendUrl + "login",
+        new Headers({
+          "Content-Type": "application/json",
+        }),
+        {}, //there is no query parameters
+        json,
+      ).catch((error: any) => {
+        const err = `Error at sending request !`;
+        store.commit("updateError", err);
+      }).then((result:any) => {
+        console.log("login result: " + JSON.stringify(result));
+        
+        let dmesg = "logged successfully";
+        let login:Login = {username:username,password:password};
+        store.commit("updateLogin", login);
+        store.commit("sendToastSuccess",dmesg);
+      });;
+    },
     getPersons({ commit }): any {
       store.commit("updateError", "");
       newRequest(
