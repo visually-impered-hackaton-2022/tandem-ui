@@ -22,7 +22,7 @@ interface APPRootState {
 const store = createStore<APPRootState>({
   state: {
     version: "1.0.0", // a simple property
-    backendUrl: "https://tandem-quarkus-tandem.apps.cluster-jpv4f.jpv4f.sandbox1420.opentlc.com/persons",
+    backendUrl: "https://tandem-quarkus-tandem.apps.cluster-jpv4f.jpv4f.sandbox1420.opentlc.com/",
     persons: [] as Person[],
     error: "",
     login: {} as Login,
@@ -53,7 +53,7 @@ const store = createStore<APPRootState>({
       store.commit("updateError", "");
       newRequest(
         HTTP_VERBS.GET,
-        this.state.backendUrl,
+        this.state.backendUrl + "persons",
         new Headers({
           "Content-Type": "application/json",
         }),
@@ -79,7 +79,7 @@ const store = createStore<APPRootState>({
       console.log(json);
       newRequest(
         HTTP_VERBS.POST,
-        this.state.backendUrl,
+        this.state.backendUrl + "persons",
         new Headers({
           "Content-Type": "application/json",
         }),
