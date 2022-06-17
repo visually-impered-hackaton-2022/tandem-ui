@@ -47,7 +47,7 @@ export default defineComponent({
                     }
                 });
             } catch (err) {
-
+                console.error(err);
             }
         }
     }

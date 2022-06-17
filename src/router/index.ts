@@ -9,7 +9,6 @@ import Login from "@/types/Login";
 import store from "@/store/index";
 
 function isAuthenticated() {
-  return true;
   let user = store.state.login as Login;
   console.log("User auth:");
   console.log(user);
