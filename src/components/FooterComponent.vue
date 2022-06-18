@@ -30,7 +30,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-        © 2022 Nikolaj Majorov Red Hat, Inc.
+        © 2022 Nikolaj Majorov and friends Red Hat, Inc.
         <a
           class="grey-text text-lighten-4 right"
           href="https://www.redhat.com/en/technologies/cloud-computing/openshift"
