@@ -19,14 +19,10 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useToast } from "vue-toastification";
-import { setup } from "vue-class-component";
-import Event from "@/types/Event"
+<script>
 
-export default defineComponent({
-    name: "EventCalendarComponent",
+
+export default {
     setup() {
         const toast = useToast();
         return { toast };
@@ -102,7 +98,7 @@ export default defineComponent({
         }
     },
     methods: {
-        openDialog(attr: any) {
+        openDialog(attr) {
             attr.checked = !attr.checked;
             this.toast.success("Succesfully registered");
         }   
@@ -113,7 +109,7 @@ export default defineComponent({
         const year = new Date().getFullYear();
         let counter = 0;
 
-        let events = this.$store.state.events as Event[];
+        let events = this.$store.state.events;
 
         for (const currEvent of events) {
             this.attributes.push(
@@ -129,7 +125,7 @@ export default defineComponent({
             );
         }
     }
-});
+};
 </script>
 
 <style lang="postcss" scoped>
