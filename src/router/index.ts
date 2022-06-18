@@ -13,7 +13,6 @@ function isAuthenticated() {
   console.log("User auth:");
   console.log(user);
   return Object.keys(user).length !== 0;
-  
 }
 
 const routes: Array<RouteRecordRaw> = [

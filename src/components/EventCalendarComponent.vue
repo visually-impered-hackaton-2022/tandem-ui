@@ -7,9 +7,10 @@
                 <div class="flex flex-col h-full z-10 overflow-hidden">
                     <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
                     <div class="flex-grow overflow-y-auto overflow-x-auto">
-                        <p v-for="attr in attributes" :key="attr.key"
-                            class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1" :class="attr.customData.class">
+                        <p v-for="attr in attributes" :key="attr.key" @click="openDialog(attr)"
+                            class="text-xs leading-tight cursor-pointer rounded-sm p-4 mt-0 mb-1" :class="attr.customData.class">
                             {{ attr.customData.title }}
+                            <span v-if="attr.checked"><i class="material-icons right">check</i></span>
                         </p>
                     </div>
                 </div>
@@ -20,9 +21,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useToast } from "vue-toastification";
+import { setup } from "vue-class-component";
+import Event from "@/types/Event"
 
 export default defineComponent({
     name: "EventCalendarComponent",
+    setup() {
+        const toast = useToast();
+        return { toast };
+    },
     data() {
         const month = new Date().getMonth();
         const year = new Date().getFullYear();
@@ -39,14 +47,17 @@ export default defineComponent({
                 'bg-orange-500 text-white'
             ],
             attributes: [
+                
                 {
                     key: 1,
+                    checked: false,
                     customData: {
                         title: 'Jogging.',
                         class: 'bg-red-600 text-white',
                     },
                     dates: new Date(year, month, 1),
                 },
+                /*
                 {
                     key: 2,
                     customData: {
@@ -86,36 +97,37 @@ export default defineComponent({
                         class: 'bg-pink-500 text-white',
                     },
                     dates: new Date(year, month, 11),
-                },
-                {
-                    key: 6,
-                    customData: {
-                        title: 'Cookout with friends.',
-                        class: 'bg-orange-500 text-white',
-                    },
-                    dates: { months: 5, ordinalWeekdays: { 2: 1 } },
-                },
-                {
-                    key: 7,
-                    customData: {
-                        title: "Mia's gymnastics recital.",
-                        class: 'bg-pink-500 text-white',
-                    },
-                    dates: new Date(year, month, 22),
-                },
-                {
-                    key: 8,
-                    customData: {
-                        title: 'Visit great grandma.',
-                        class: 'bg-red-600 text-white',
-                    },
-                    dates: new Date(year, month, 25),
-                },
+                },*/
             ],
         }
     },
     methods: {
+        openDialog(attr: any) {
+            attr.checked = !attr.checked;
+            this.toast.success("Succesfully registered");
+        }   
+    },
 
+    mounted() {
+        const month = new Date().getMonth();
+        const year = new Date().getFullYear();
+        let counter = 0;
+
+        let events = this.$store.state.events as Event[];
+
+        for (const currEvent of events) {
+            this.attributes.push(
+                {
+                    key: ++counter,
+                    checked: false,
+                    customData: {
+                        title: currEvent.name,
+                        class: 'bg-teal-500 text-white',
+                    },
+                    dates: currEvent.date,
+                }
+            );
+        }
     }
 });
 </script>

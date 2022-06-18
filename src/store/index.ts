@@ -5,6 +5,7 @@ import Person from "@/types/Person";
 import { useToast } from "vue-toastification";
 import { stat } from "fs";
 import Login from "@/types/Login";
+import Event from "@/types/Event";
 
 const toast = useToast();
 
@@ -17,6 +18,7 @@ interface APPRootState {
   persons : Person[];
   error: string;
   login: Login;
+  events: Event[]
 }
 
 const store = createStore<APPRootState>({
@@ -26,9 +28,15 @@ const store = createStore<APPRootState>({
     persons: [] as Person[],
     error: "",
     login: {} as Login,
+    events: [] as Event[],
   },
   mutations: {
-    
+    addEvent(state, event: Event) {
+      state.events.push(event);
+    },
+    updateLogin(state, login: Login) {
+      state.login = login;
+    },
     updateBackendUrl(state, backendUrl) {
       state.backendUrl = backendUrl;
     },
@@ -40,9 +48,6 @@ const store = createStore<APPRootState>({
       if (err != "") {
         toast.error(err);
       }
-    },
-    updateLogin(state, login) {
-      state.login =login;
     },
     sendToastSuccess(state,msg:string){
       if (state.error === ""){
@@ -116,7 +121,34 @@ const store = createStore<APPRootState>({
         const err = `Error at sending request !`;
         store.commit("updateError", err);
       }).then((result:any) => {
-        let dmesg = "saved successfully";
+        let dmesg = "Registered successfully";
+        store.commit("sendToastSuccess",dmesg);
+      });
+
+    },
+    addEvent({ commit },{name,date,interest}): any {
+      store.commit("updateError", "");
+      let event:Event = {
+        name: name,
+        date: date,
+        interest: interest,
+        participants: []
+      };
+      const json = JSON.stringify(event);
+      console.log(json);
+      newRequest(
+        HTTP_VERBS.POST,
+        this.state.backendUrl + "events",
+        new Headers({
+          "Content-Type": "application/json",
+        }),
+        {}, //there is no query parameters
+        json
+      ).catch((error: any) => {
+        const err = `Error at sending request !`;
+        store.commit("updateError", err);
+      }).then((result:any) => {
+        let dmesg = "Event saved successfully";
         store.commit("sendToastSuccess",dmesg);
       });
 

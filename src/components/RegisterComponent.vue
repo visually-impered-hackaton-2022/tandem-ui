@@ -4,7 +4,7 @@
         <form @submit.prevent="register(username, password, blind, interests)">
             <input v-model="username" placeholder="Username" required>
             <input v-model="password" placeholder="Password" type="password" required>
-            
+
             <h3>Your Interests</h3>
             <p>
                 <label>
@@ -24,7 +24,7 @@
                     <span>Travel</span>
                 </label>
             </p>
-            
+
             <h3>Disability</h3>
             <p>
                 <label>
@@ -43,6 +43,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useToast } from "vue-toastification";
+import { mapMutations } from 'vuex'
 
 export default defineComponent({
     name: "RegisterComponent",
@@ -61,33 +62,34 @@ export default defineComponent({
             interests: [] as string[]
         }
     },
-
-  
-
     methods: {
 
         blindLabel() {
             return this.blind ? "Yes" : "No";
         },
-
         register(username: string, password: string, blind: boolean, interests: string[]): void {
-            
+
             if (this.username === undefined || this.username === "") {
                 this.toast.error("Username is not set");
                 return
             }
             try {
-                this.$store.dispatch("addPerson", { 
+                this.$store.dispatch("addPerson", {
                     username: this.username,
                     password: this.password,
                     interests: this.interests,
                     blind: this.blind,
-                    id: null })
+                    id: null
+                });
+                this.setUser({username: username, password: password})
                 this.$router.push("/");
             } catch (err) {
-                    
+
             }
         },
+        ...mapMutations({
+            setUser: 'updateLogin' // map `this.add()` to `this.$store.commit('increment')`
+        })
     }
 
 });

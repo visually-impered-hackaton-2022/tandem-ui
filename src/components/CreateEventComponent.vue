@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapMutations } from 'vuex';
 
 export default defineComponent({
     name: "CreateEventComponent",
@@ -36,7 +37,17 @@ export default defineComponent({
             console.log(interest);
             console.log(date);
             console.log(name);
-        }
+            this.add({
+                name: name,
+                date: date,
+                interest: interest,
+                participants: []
+            });
+            this.$router.push("/");
+        },
+        ...mapMutations({
+            add: 'addEvent' // map `this.add()` to `this.$store.commit('increment')`
+        })
     }
 });
 </script>
