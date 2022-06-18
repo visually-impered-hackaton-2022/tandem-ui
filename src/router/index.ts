@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import AddPersonView from "@/views/AddPersonView.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
+import CreateEvent from "@/views/CreateEvent.vue";
 import Login from "@/types/Login";
 import store from "@/store/index";
 
@@ -12,7 +13,6 @@ function isAuthenticated() {
   console.log("User auth:");
   console.log(user);
   return Object.keys(user).length !== 0;
-  
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/create",
+    name: "create",
+    component: CreateEvent,
   },
   {
     path: "/about",
