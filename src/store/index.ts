@@ -69,19 +69,16 @@ const store = createStore<APPRootState>({
         }),
         {}, //there is no query parameters
         json,
-      ).then((response:Response) => {
-        console.log("login result: " + 
-        response);
-        if (response.status == 200){
-          let dmesg = "logged successfully";
-          let login:Login = {username:username,password:password};
-          store.commit("updateLogin", login);
-          store.commit("sendToastSuccess",dmesg);
-        }else if (response.status == 401){
-          store.commit("updateError", "Unauthorized!");
+      ).then((response) => {
+        if (response != undefined && response instanceof Response ){
+          if (response.status === 401){
+            store.commit("updateLogin",{});
+            return;
+          }
         }
-      
-       
+        
+        store.commit("updateLogin", {username:username,password:password});
+        
       }).catch(error => {
         console.error('Error:', error);
         store.commit("updateError", "error at sending request");

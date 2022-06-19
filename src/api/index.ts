@@ -17,25 +17,27 @@ export default function newRequest(
   if (method === HTTP_VERBS.GET || method === HTTP_VERBS.PATCH) {
     delete init.body;
   }
-  console.log("init:" + JSON.stringify(init));
   const responseData = fetch(
     url,
     init
     //  params: queryParams,
   ).then((response: Response) => {
     //console.log("headers: " + JSON.stringify(headers) );
-
-    if (headers.get("Content-Type") === "application/json") {
-      console.log("application type json");
-      return response.json();
-    } else {
-      return response.text().then(function (text) {
-        return text;
-      });
+    if (response.status === 200 || response.status === 201){
+        if (headers.get("Content-Type") === "application/json") {
+              return response.json();
+            } else {
+              return response.text().then(function (text) {
+                return text;
+              });
+            }
     }
+    //just return plain response object
+    // for example if status 401 etc.
+    return response;
   });
-
   return responseData;
+ 
 }
 
 // export const loadPosts = () => {
