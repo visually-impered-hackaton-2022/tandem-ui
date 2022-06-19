@@ -6,6 +6,7 @@ import { useToast } from "vue-toastification";
 import { stat } from "fs";
 import Login from "@/types/Login";
 import Event from "@/types/Event";
+import { routerPush } from "@/router";
 
 const toast = useToast();
 
@@ -35,6 +36,7 @@ const store = createStore<APPRootState>({
       state.events.push(event);
     },
     updateLogin(state, login: Login) {
+      console.log("updateLogin called: " + JSON.stringify(login));
       state.login = login;
     },
     updateBackendUrl(state, backendUrl) {
@@ -73,15 +75,18 @@ const store = createStore<APPRootState>({
         if (response != undefined && response instanceof Response ){
           if (response.status === 401){
             store.commit("updateLogin",{});
+            commit("updateError", "login failed!");
             return;
           }
         }
         
-        store.commit("updateLogin", {username:username,password:password});
-        
+        console.log("run commit updateLogin")
+        commit("updateLogin", {username:username,password:password});
+        routerPush("home");
+
       }).catch(error => {
         console.error('Error:', error);
-        store.commit("updateError", "error at sending request");
+        commit("updateError", "error at sending request");
       });
     },
     getPersons({ commit }): any {
@@ -122,7 +127,7 @@ const store = createStore<APPRootState>({
         json
       ).catch((error: any) => {
         const err = `Error at sending request !`;
-        store.commit("updateError", err);
+        commit("updateError", err);
       }).then((result:any) => {
         let dmesg = "Registered successfully";
         store.commit("sendToastSuccess",dmesg);

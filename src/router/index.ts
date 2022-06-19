@@ -1,5 +1,6 @@
 import SettingsView from "@/views/Settings.vue";
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw, RouteParams } from "vue-router";
+
 import HomeView from "../views/HomeView.vue";
 import AddPersonView from "@/views/AddPersonView.vue";
 import LoginView from "@/views/LoginView.vue";
@@ -15,6 +16,16 @@ function isAuthenticated() {
   return Object.keys(user).length !== 0;
 }
 
+
+export type AppRouteNames =
+  | 'home'
+  | 'create-event'
+  | 'about'
+  | 'login'
+  | 'register'
+  | 'add-person'
+
+  
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -23,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/create",
-    name: "create",
+    name: "create-event",
     component: CreateEvent,
   },
   {
@@ -52,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/add",
-    name: "add",
+    name: "add-person",
     component: AddPersonView,
   },
 ];
@@ -66,5 +77,16 @@ router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && to.name !== 'register' && to.name !== 'settings' && !isAuthenticated()) next({ name: 'login' })
   else next()
 });
+
+export function routerPush (name: AppRouteNames, params?: RouteParams): ReturnType<typeof router.push> {
+  if (params !== undefined) {
+    return router.push({
+      name,
+      params,
+    })
+  } else {
+    return router.push({ name })
+  }
+}
 
 export default router;

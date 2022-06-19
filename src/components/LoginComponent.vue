@@ -33,18 +33,12 @@ export default defineComponent({
         this.toast.error("Username is not set");
         return;
       }
-      this.$store.dispatch("login", {
-        username: this.username,
-        password: this.password,
-      });
-      let login = this.$store.state.login;
-
-      if (login.username == username) {
-        console.debug("user logged");
-        this.$router.push("/");
-      } else {
-        this.toast.error("Login failed");
-      }
+      this.$store
+        .dispatch("login", {
+          username: this.username,
+          password: this.password,
+        })
+         
     },
   },
 });
