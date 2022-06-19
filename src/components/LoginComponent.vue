@@ -39,8 +39,9 @@ export default defineComponent({
                     username: this.username,
                     password: this.password
                 }).then(() => {
-                    let persons = this.$store.state.persons as Person[];
-                    if (persons.find(p => p.username == username && p.password == password) != undefined) {
+                    let login = this.$store.state.login;
+
+                    if (login.username == username) {
                         this.$router.push("/");
                     } else {
                         this.toast.error("Login failed");

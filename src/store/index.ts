@@ -24,7 +24,7 @@ interface APPRootState {
 const store = createStore<APPRootState>({
   state: {
     version: "1.0.0", // a simple property
-    backendUrl: "https://tandem-quarkus-tandem.apps.cluster-jpv4f.jpv4f.sandbox1420.opentlc.com/",
+    backendUrl: "http://localhost:8080/",
     persons: [] as Person[],
     error: "",
     login: {} as Login,
@@ -69,17 +69,23 @@ const store = createStore<APPRootState>({
         }),
         {}, //there is no query parameters
         json,
-      ).catch((error: any) => {
-        const err = `Error at sending request !`;
-        store.commit("updateError", err);
-      }).then((result:any) => {
-        console.log("login result: " + JSON.stringify(result));
-        
-        let dmesg = "logged successfully";
-        let login:Login = {username:username,password:password};
-        store.commit("updateLogin", login);
-        store.commit("sendToastSuccess",dmesg);
-      });;
+      ).then((response:Response) => {
+        console.log("login result: " + 
+        response);
+        if (response.status == 200){
+          let dmesg = "logged successfully";
+          let login:Login = {username:username,password:password};
+          store.commit("updateLogin", login);
+          store.commit("sendToastSuccess",dmesg);
+        }else if (response.status == 401){
+          store.commit("updateError", "Unauthorized!");
+        }
+      
+       
+      }).catch(error => {
+        console.error('Error:', error);
+        store.commit("updateError", "error at sending request");
+      });
     },
     getPersons({ commit }): any {
       store.commit("updateError", "");
