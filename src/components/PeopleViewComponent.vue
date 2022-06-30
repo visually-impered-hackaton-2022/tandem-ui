@@ -48,6 +48,7 @@ export default defineComponent({
   },
   computed: {
     viewPeople() {
+      
       return this.$store.state.persons;
        //this.$store.state.filter(entry => entry.type === 'recordReview')
     },
