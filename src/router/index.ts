@@ -6,6 +6,7 @@ import AddPersonView from "@/views/AddPersonView.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import CreateEvent from "@/views/CreateEvent.vue";
+import AboutView from "@/views/AboutView.vue";
 import Login from "@/types/Login";
 import store from "@/store/index";
 
@@ -25,7 +26,7 @@ export type AppRouteNames =
   | 'register'
   | 'add-person'
 
-  
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -40,11 +41,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/AboutView.vue"),
+    component:AboutView,
   },
   {
     path: "/login",
